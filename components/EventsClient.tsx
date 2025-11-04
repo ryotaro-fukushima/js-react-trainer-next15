@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/Card";
+import { useChecklist } from "@/components/progress";
 
 export function EventPlayground(){
   const [log, setLog] = useState<string[]>([]);
   const [capture, setCapture] = useState(false);
   const [useStop, setUseStop] = useState(false);
+  const { mark } = useChecklist();
   const push = (msg: string) => setLog((l)=>[msg, ...l]);
 
   const handler = (label: string) => (e: React.MouseEvent<HTMLElement>) => {
@@ -39,6 +41,9 @@ export function EventPlayground(){
       <div className="text-xs text-gray-600">右が最新</div>
       <div className="h-28 overflow-auto bg-gray-50 rounded-xl p-2 text-xs border">
         {log.map((l,i)=>(<div key={i}>{l}</div>))}
+      </div>
+      <div className="mt-2">
+        <Button onClick={()=>mark("events_bub_cap")}>理解したらチェック</Button>
       </div>
     </div>
   );
