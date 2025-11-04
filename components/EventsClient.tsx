@@ -64,7 +64,11 @@ export function ThisDemo(){
     obj.methodNormal();
     obj.methodArrow();
     const detached = obj.methodNormal;
-    detached();
+    try {
+      detached();
+    } catch (e) {
+      logs.push(`detached() error: ${e instanceof Error ? e.message : String(e)}`);
+    }
     const bound = obj.methodNormal.bind({ x: 7 });
     bound();
     setOut(logs.join("\n"));
